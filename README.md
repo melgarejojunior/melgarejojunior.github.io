@@ -23,13 +23,11 @@ For a Portuguese translation, create another file with `lang: pt-BR`, a Portugue
 
 Edit the home pages in `en/index.md` and `pt/index.md`, and About pages in `en/about.md` and `pt/sobre.md`. Navigation and dates follow the page language. Existing `/sobre/` and `/artigos/primeiro-artigo/` links forward to their Portuguese pages.
 
-## Custom domain — not connected yet
+## Custom domain
 
-1. Verify `melgarejo.net.br` in your GitHub profile → Settings → Pages, using the TXT record GitHub provides in Cloudflare.
-2. Set `melgarejo.net.br` in this repository → Settings → Pages → Custom domain, before changing DNS. Keep the CNAME file GitHub creates.
-3. In Cloudflare, use DNS-only A records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`. Point CNAME `www` to `melgarejojunior.github.io`, also DNS only. Preserve email records and review existing web records before replacing them.
-4. Change `url` in `_config.yml` to `https://melgarejo.net.br`. Keep `baseurl` empty.
-5. Wait for the DNS check and HTTPS certificate; enable Enforce HTTPS. Test both languages and www.
+The blog uses `https://blog.melgarejo.net.br`, with domain verification and Enforce HTTPS enabled in GitHub Pages. Keep the root `CNAME` file and `url` in `_config.yml` set to this subdomain; `baseurl` stays empty.
+
+In Cloudflare, keep a DNS-only CNAME record named `blog` pointing to `melgarejojunior.github.io`, plus the GitHub domain-verification TXT record. The blog does not require changes to root, www, or email records.
 
 Reference: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
