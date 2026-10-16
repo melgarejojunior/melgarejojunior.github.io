@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% seo %}
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <style>
+    .skip-link { position: absolute; top: 0; left: 1rem; transform: translateY(-100%); }
+    .skip-link:focus { transform: translateY(0); z-index: 10; padding: .5rem 1rem; background: #fff; color: #111; outline: 2px solid currentColor; }
+  </style>
   {% assign documents = site.pages | concat: site.posts %}
   {% if page.translation_key %}
     {% assign translations = documents | where: 'translation_key', page.translation_key %}
@@ -13,7 +17,7 @@
 </head>
 <body>
   {% assign language = page.lang | default: site.lang %}
-  <a href="#content" class="wrapper">{% if language == 'pt-BR' %}Pular para o conteúdo{% else %}Skip to content{% endif %}</a>
+  <a href="#content" class="skip-link">{% if language == 'pt-BR' %}Pular para o conteúdo{% else %}Skip to content{% endif %}</a>
   <header class="site-header"><div class="wrapper">
     {% if language == 'pt-BR' %}{% assign home = '/pt/' %}{% assign about = '/pt/sobre/' %}{% else %}{% assign home = '/en/' %}{% assign about = '/en/about/' %}{% endif %}
     <a class="site-title" href="{{ home | relative_url }}">{{ site.title | escape }}</a>
