@@ -1,70 +1,38 @@
-# Blog Melgarejo
+# Melgarejo — bilingual blog
 
-Blog em português com Jekyll e o tema Minima, compatível com GitHub Pages. Sem painel administrativo: os artigos são arquivos Markdown. O conteúdo do repositório e do site será público.
+Jekyll + Minima on GitHub Pages. English is the default at `/en/`; Portuguese is at `/pt/`. The root forwards to English. Each article list only shows posts in its own language. RSS at `/feed.xml` includes both languages.
 
-## 1. Criar o repositório
+## Publish an article
 
-1. Entre em https://github.com/new com a conta `melgarejojunior`.
-2. Use o nome exato `melgarejojunior.github.io` e a visibilidade **Public**.
-3. Crie o repositório. Extraia o ZIP do blog e envie o conteúdo da pasta `blog-melgarejo` para a raiz do repositório, usando **uploading an existing file**. Não envie a pasta externa nem o próprio ZIP.
-4. Inclua a pasta `_posts` com seu artigo. Confirme que `_config.yml` e `index.md` estão na raiz e salve com **Commit changes**.
-5. Em **Settings → Pages → Build and deployment**, selecione **Deploy from a branch**, branch `main`, pasta **/(root)** e **Save**.
-6. Aguarde o processo de publicação. Confira o resultado em **Actions** e abra https://melgarejojunior.github.io.
+Create a Markdown file in `_posts` named `YYYY-MM-DD-slug.md` with this header:
 
-Antes de publicar, personalize a descrição em `_config.yml`, a página `sobre.md` e edite ou exclua o artigo de exemplo.
-
-## 2. Publicar artigos
-
-No repositório, clique em **Add file → Create new file**. Use um nome como `_posts/2026-10-16-titulo-do-artigo.md`.
-
-Cole este modelo e escreva abaixo do segundo `---`:
-
-```markdown
+```yaml
 ---
 layout: post
-title: "Título do artigo"
-date: 2026-10-16 09:00:00 -0400
+title: "Your title"
+lang: en
+translation_key: unique-article-name
+permalink: /en/articles/your-slug/
+date: 2026-10-15 12:00:00 -0400
 ---
-
-O primeiro parágrafo aparece como resumo na página inicial.
-
-## Uma seção
-
-Continue o texto aqui.
 ```
 
-Use a data real da publicação no nome e no campo `date`: artigos com data futura não aparecem até uma nova compilação depois dessa data. Clique em **Commit changes**; o Pages recompila o blog automaticamente. Para imagens, envie os arquivos para `assets/images/` e use `![Descrição da imagem]({{ '/assets/images/foto.jpg' | relative_url }})` no artigo.
+Write the article below the header. The first paragraph becomes the excerpt. Use the actual publication date; future posts require a new build after their publication time. Commit to `main` to publish automatically.
 
-## 3. Conectar melgarejo.net.br pela Cloudflare
+For a Portuguese translation, create another file with `lang: pt-BR`, a Portuguese title, and `permalink: /pt/artigos/seu-titulo/`. Use the **same translation_key** in the two versions. Each key must have at most one document per language. The language switch appears only when a matching translation exists; a single-language article does not need a second file. Translations are edited manually.
 
-Faça esta etapa depois de o endereço do GitHub funcionar. Se já existir outro site no domínio, a troca dos registros web muda o destino dele.
+Edit the home pages in `en/index.md` and `pt/index.md`, and About pages in `en/about.md` and `pt/sobre.md`. Navigation and dates follow the page language. Existing `/sobre/` and `/artigos/primeiro-artigo/` links forward to their Portuguese pages.
 
-1. No GitHub, abra as configurações do perfil → **Pages**, adicione `melgarejo.net.br` e siga a verificação por registro TXT. Crie o TXT solicitado no DNS da Cloudflare e mantenha-o após a verificação.
-2. No repositório, abra **Settings → Pages → Custom domain**, informe `melgarejo.net.br` e salve. O GitHub cria um arquivo `CNAME` na publicação por branch; preserve esse arquivo.
-3. Na Cloudflare, em **DNS → Records**, configure os registros abaixo. Revise eventuais registros A, AAAA ou CNAME existentes para `@` e `www` que apontem para outro site. Preserve MX, registros de e-mail e o TXT de verificação.
+## Custom domain — not connected yet
 
-| Tipo | Nome | Destino | Proxy |
-| --- | --- | --- | --- |
-| A | @ | 185.199.108.153 | DNS only |
-| A | @ | 185.199.109.153 | DNS only |
-| A | @ | 185.199.110.153 | DNS only |
-| A | @ | 185.199.111.153 | DNS only |
-| CNAME | www | melgarejojunior.github.io | DNS only |
+1. Verify `melgarejo.net.br` in your GitHub profile → Settings → Pages, using the TXT record GitHub provides in Cloudflare.
+2. Set `melgarejo.net.br` in this repository → Settings → Pages → Custom domain, before changing DNS. Keep the CNAME file GitHub creates.
+3. In Cloudflare, use DNS-only A records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`. Point CNAME `www` to `melgarejojunior.github.io`, also DNS only. Preserve email records and review existing web records before replacing them.
+4. Change `url` in `_config.yml` to `https://melgarejo.net.br`. Keep `baseurl` empty.
+5. Wait for the DNS check and HTTPS certificate; enable Enforce HTTPS. Test both languages and www.
 
-Use a nuvem cinza (**DNS only**) nessa configuração. Nenhuma alteração no Registro.br é necessária se os nameservers já apontam para a Cloudflare.
+Reference: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
-4. Altere `url` no `_config.yml` para `"https://melgarejo.net.br"` e mantenha `baseurl: ""`.
-5. Aguarde a validação do DNS e a emissão do certificado no GitHub. Marque **Enforce HTTPS** quando estiver disponível.
-6. Teste `https://melgarejo.net.br`, `https://www.melgarejo.net.br`, a página Sobre, um artigo e o RSS. Com ambos os nomes configurados, o GitHub encaminha o www para o domínio principal.
+## Local preview
 
-Não ative um redirecionamento por regra da Cloudflare: o domínio será servido diretamente pelo Pages.
-
-## Verificação local opcional
-
-Com Ruby e Bundler instalados, execute `bundle install` e `bundle exec jekyll serve`. Abra o endereço local indicado no terminal. Esses programas não são necessários para publicar pelo GitHub.
-
-## Referências
-
-- https://docs.github.com/en/pages/quickstart
-- https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
-- https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages
+With Ruby and Bundler installed: `bundle install`, then `bundle exec jekyll serve`.

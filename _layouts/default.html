@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  {% assign documents = site.pages | concat: site.posts %}
+  {% if page.translation_key %}
+    {% assign translations = documents | where: 'translation_key', page.translation_key %}
+    {% for translation in translations %}<link rel="alternate" hreflang="{{ translation.lang }}" href="{{ translation.url | absolute_url }}">{% endfor %}
+  {% endif %}
+</head>
+<body>
+  {% assign language = page.lang | default: site.lang %}
+  <a href="#content" class="wrapper">{% if language == 'pt-BR' %}Pular para o conteúdo{% else %}Skip to content{% endif %}</a>
+  <header class="site-header"><div class="wrapper">
+    {% if language == 'pt-BR' %}{% assign home = '/pt/' %}{% assign about = '/pt/sobre/' %}{% else %}{% assign home = '/en/' %}{% assign about = '/en/about/' %}{% endif %}
+    <a class="site-title" href="{{ home | relative_url }}">{{ site.title | escape }}</a>
+    <nav aria-label="{% if language == 'pt-BR' %}Navegação principal{% else %}Main navigation{% endif %}" style="clear:both;padding-bottom:12px">
+      <a href="{{ home | relative_url }}">{% if language == 'pt-BR' %}Artigos{% else %}Articles{% endif %}</a> ·
+      <a href="{{ about | relative_url }}">{% if language == 'pt-BR' %}Sobre{% else %}About{% endif %}</a>
+      {% if page.translation_key %}{% for translation in translations %}{% if translation.lang != language %}
+      · <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url | relative_url }}">{% if translation.lang == 'pt-BR' %}Português{% else %}English{% endif %}</a>
+      {% endif %}{% endfor %}{% endif %}
+    </nav>
+  </div></header>
+  <main id="content" class="page-content" tabindex="-1"><div class="wrapper">{{ content }}</div></main>
+  <footer class="site-footer"><div class="wrapper"><p>{{ site.title | escape }} · <a href="{{ '/feed.xml' | relative_url }}">RSS</a></p></div></footer>
+</body>
+</html>

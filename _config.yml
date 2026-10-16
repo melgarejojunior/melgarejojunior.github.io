@@ -1,6 +1,6 @@
 title: Melgarejo
-description: Artigos, ideias e reflexões.
-lang: pt-BR
+description: Articles, ideas and reflections.
+lang: en
 timezone: America/Cuiaba
 url: "https://melgarejojunior.github.io"
 baseurl: ""
@@ -13,8 +13,6 @@ show_excerpts: true
 date_format: "%d/%m/%Y"
 minima:
   date_format: "%d/%m/%Y"
-header_pages:
-  - sobre.md
 exclude:
   - README.md
   - Gemfile

@@ -1,5 +1,8 @@
 ---
 layout: post
+lang: pt-BR
+translation_key: first-post
+permalink: /pt/artigos/primeiro-artigo/
 title: "Primeiro artigo"
 date: 2026-10-15 12:00:00 -0400
 ---
