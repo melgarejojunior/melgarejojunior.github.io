@@ -53,7 +53,8 @@ img, video { max-width: 100%; height: auto; }
 table { display: block; max-width: 100%; overflow-x: auto; }
 h1, h2, h3 { scroll-margin-top: 24px; }
 .site-footer { border-top: 1px solid var(--line); padding: 28px 0; }
-.footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; color: var(--muted); font-size: 12px; }
+.footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; color: var(--muted); font-size: 12px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
 .footer-inner p { margin: 0; }
 .footer-inner a { display: inline-flex; align-items: center; min-height: 44px; }
 .skip-link:focus { background: var(--paper); }

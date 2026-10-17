@@ -32,6 +32,13 @@
     </nav>
   </div></div></header>
   <main id="content" class="page-content" tabindex="-1"><div class="wrapper">{{ content }}</div></main>
-  <footer class="site-footer"><div class="wrapper footer-inner"><p>{{ site.title | escape }} · {% if language == 'pt-BR' %}Artigos, ideias e reflexões.{% else %}Articles, ideas and reflections.{% endif %}</p><a href="{{ '/feed.xml' | relative_url }}">{% if language == 'pt-BR' %}Acompanhe por RSS{% else %}Follow via RSS{% endif %} <span aria-hidden="true">↗</span></a></div></footer>
+  <footer class="site-footer"><div class="wrapper footer-inner">
+    <p>{{ site.title | escape }} · {% if language == 'pt-BR' %}Artigos, ideias e reflexões.{% else %}Articles, ideas and reflections.{% endif %}</p>
+    <nav class="footer-links" aria-label="{% if language == 'pt-BR' %}Redes e RSS{% else %}Social profiles and RSS{% endif %}">
+      <a href="https://www.linkedin.com/in/juniormelgarejo/">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/melgarejojunior">GitHub <span aria-hidden="true">↗</span></a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div></footer>
 </body>
 </html>
