@@ -1,12 +1,16 @@
 ---
 layout: default
 ---
+<div class="home-intro">
+<p class="eyebrow">{% if page.lang == 'pt-BR' %}O blog de Melgarejo{% else %}The Melgarejo journal{% endif %}</p>
 {{ content }}
-<h2>{% if page.lang == 'pt-BR' %}Publicações{% else %}Latest articles{% endif %}</h2>
+</div>
+<h2 class="section-title">{% if page.lang == 'pt-BR' %}Publicações{% else %}Latest articles{% endif %}</h2>
 {% assign posts = site.posts | where: 'lang', page.lang %}
 <ul class="post-list">
 {% for post in posts %}
   <li><span class="post-meta"><time datetime="{{ post.date | date_to_xmlschema }}">{% if page.lang == 'pt-BR' %}{{ post.date | date: '%d/%m/%Y' }}{% else %}{{ post.date | date: '%b %-d, %Y' }}{% endif %}</time></span>
-  <h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>{{ post.excerpt }}</li>
+  <div class="post-summary"><h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>{{ post.excerpt }}
+  <a class="read-link" href="{{ post.url | relative_url }}">{% if page.lang == 'pt-BR' %}Ler artigo{% else %}Read article{% endif %}<span aria-hidden="true">&nbsp;↗</span></a></div></li>
 {% endfor %}
 </ul>

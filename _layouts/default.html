@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% seo %}
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/editorial.css' | relative_url }}">
+  <meta name="theme-color" content="#f7f4ed">
   <style>
     .skip-link { position: absolute; top: 0; left: 1rem; transform: translateY(-100%); }
     .skip-link:focus { transform: translateY(0); z-index: 10; padding: .5rem 1rem; background: #fff; color: #111; outline: 2px solid currentColor; }
@@ -18,18 +20,18 @@
 <body>
   {% assign language = page.lang | default: site.lang %}
   <a href="#content" class="skip-link">{% if language == 'pt-BR' %}Pular para o conteúdo{% else %}Skip to content{% endif %}</a>
-  <header class="site-header"><div class="wrapper">
+  <header class="site-header"><div class="wrapper"><div class="header-inner">
     {% if language == 'pt-BR' %}{% assign home = '/pt/' %}{% assign about = '/pt/sobre/' %}{% else %}{% assign home = '/en/' %}{% assign about = '/en/about/' %}{% endif %}
     <a class="site-title" href="{{ home | relative_url }}">{{ site.title | escape }}</a>
-    <nav aria-label="{% if language == 'pt-BR' %}Navegação principal{% else %}Main navigation{% endif %}" style="clear:both;padding-bottom:12px">
-      <a href="{{ home | relative_url }}">{% if language == 'pt-BR' %}Artigos{% else %}Articles{% endif %}</a> ·
+    <nav class="site-navigation" aria-label="{% if language == 'pt-BR' %}Navegação principal{% else %}Main navigation{% endif %}">
+      <a href="{{ home | relative_url }}">{% if language == 'pt-BR' %}Artigos{% else %}Articles{% endif %}</a>
       <a href="{{ about | relative_url }}">{% if language == 'pt-BR' %}Sobre{% else %}About{% endif %}</a>
       {% if page.translation_key %}{% for translation in translations %}{% if translation.lang != language %}
-      · <a lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url | relative_url }}">{% if translation.lang == 'pt-BR' %}Português{% else %}English{% endif %}</a>
+      <a class="language-link" lang="{{ translation.lang }}" hreflang="{{ translation.lang }}" href="{{ translation.url | relative_url }}">{% if translation.lang == 'pt-BR' %}Português{% else %}English{% endif %}</a>
       {% endif %}{% endfor %}{% endif %}
     </nav>
-  </div></header>
+  </div></div></header>
   <main id="content" class="page-content" tabindex="-1"><div class="wrapper">{{ content }}</div></main>
-  <footer class="site-footer"><div class="wrapper"><p>{{ site.title | escape }} · <a href="{{ '/feed.xml' | relative_url }}">RSS</a></p></div></footer>
+  <footer class="site-footer"><div class="wrapper footer-inner"><p>{{ site.title | escape }} · {% if language == 'pt-BR' %}Artigos, ideias e reflexões.{% else %}Articles, ideas and reflections.{% endif %}</p><a href="{{ '/feed.xml' | relative_url }}">{% if language == 'pt-BR' %}Acompanhe por RSS{% else %}Follow via RSS{% endif %} <span aria-hidden="true">↗</span></a></div></footer>
 </body>
 </html>
